@@ -1,0 +1,41 @@
+wording
+
+วิธีใช้งาน
+1. เลือกสินค้าที่ต้องการ
+2. เลือกวิธีการชำระเงิน
+3. ชำระเงิน
+4. รอรับสินค้า
+5. รับเงินทอนของคุณ
+
+How to Use
+1. Select your desired product.
+2. Choose a payment method
+3. Make the payment.
+4. Pick up your item.
+5. Collect your change.
+
+-----------------------------------------------------------------
+
+ระบบกำลังรอการชำระเงิน กรุณาหยอดเหรียญหรือธนบัตร
+(รองรับเหรียญ: 1, 5, 10 บาท | ธนบัตร: 20, 50, 100, 500, 1,000 บาท)
+ยอดเงินที่ชำระแล้ว: [XXX] บาท
+ขาดอีก: [YYY] บาท
+
+Waiting for payment. Please insert coins or banknotes.
+(Accepted: Coins - 1, 5, 10 THB | Banknotes - 20, 50, 100, 500, 1,000 THB)
+Amount paid: [XXX] THB
+Remaining amount: [YYY] THB
+
+-----------------------------------------------------------------
+
+การชำระเงินสำเร็จ
+การชำระเงินของคุณสำเร็จเรียบร้อยแล้ว
+กรุณารับเงินทอนของคุณ
+
+
+Payment Successful
+Your payment has been completed successfully.
+Please collect your change.
+
+-----------------------------------------------------------------
+
