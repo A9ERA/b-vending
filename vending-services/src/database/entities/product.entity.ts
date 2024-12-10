@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { MediaEntity } from './media.entity';
 
@@ -14,6 +14,7 @@ export class ProductEntity extends BaseEntity {
   price: number;
 
   @ManyToOne(() => MediaEntity, { nullable: true })
+  @JoinColumn({ name: 'preview_pic_id' })
   previewPic: MediaEntity;
 
   @Column({ type: 'text', nullable: true })

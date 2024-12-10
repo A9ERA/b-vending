@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { ProductEntity } from './product.entity';
 
@@ -10,9 +10,10 @@ export class MediaEntity extends BaseEntity {
   @Column({ type: 'text', nullable: false })
   data: string;
 
-  @Column({ type: 'varchar', length: 128, nullable: false })
+  @Column({ type: 'varchar', length: 128, nullable: false, name: 'file_type' })
   fileType: string;
 
   @ManyToOne(() => ProductEntity, (product) => product.id, { nullable: true })
+  @JoinColumn({ name: 'product_id' })
   product?: ProductEntity;
 }
