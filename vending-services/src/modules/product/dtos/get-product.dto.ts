@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-export class GetCategoryQueryParamDto {
+export class GetProductQueryParamDto {
     @IsString()
     @IsOptional()
     id: string;
