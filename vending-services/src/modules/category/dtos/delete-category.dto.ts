@@ -1,23 +1,23 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+
 
 export class DeleteCategoryPathParamDto {
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
   id: string;
 }
 
 interface DeleteCategoryResponseBody {
-  referenceCode: string;
+  success: boolean;
 }
-export class DeleteCategoryResponseDto extends BaseResponse<DeleteCategoryResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      HttpCode.OK,
-    );
+export class DeleteCategoryResponse extends BaseResponse<
+  DeleteCategoryResponseBody
+> {
+  constructor(result: boolean) {
+    super({
+      success: result
+    });
   }
 }

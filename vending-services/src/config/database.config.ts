@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { entities } from './entities';
-import config from '../config/common.config';
+import { entities } from '../database/entities';
+import config from './common.config';
 
 
 @Injectable()

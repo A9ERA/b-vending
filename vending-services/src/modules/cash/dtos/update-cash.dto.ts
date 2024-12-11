@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+
 
 export class UpdateCashPathParamDto {
   @IsString()
@@ -29,7 +29,7 @@ export class UpdateCashResponseDto extends BaseResponse<UpdateCashResponseBody> 
       {
         referenceCode,
       },
-      HttpCode.OK,
+      
     );
   }
 }

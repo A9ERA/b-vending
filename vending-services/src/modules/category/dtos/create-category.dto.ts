@@ -1,6 +1,7 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+import { CategoryEntity } from 'src/database/entities/category.entity';
+
 
 export class CreateCategoryRequestBodyDto {
   @IsString()
@@ -8,21 +9,21 @@ export class CreateCategoryRequestBodyDto {
   name: string;
 
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
   @IsOptional()
   parentId: string;
 }
 
-interface CreateCategoryResponseBody {
-  referenceCode: string;
+interface CreateCategoryResponseBody extends Omit<CategoryEntity, 'parent'> {
+  parentId: string;
 }
-export class CreateCategoryResponseDto extends BaseResponse<CreateCategoryResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      HttpCode.OK,
-    );
+
+export class CreateCategoryResponse extends BaseResponse<CreateCategoryResponseBody> {
+  constructor({ parent, ...category }: CategoryEntity) {
+    super({
+      ...category,
+      parentId: parent?.id ?? null,
+    });
   }
 }

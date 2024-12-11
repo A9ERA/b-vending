@@ -12,7 +12,7 @@ const migrationDataSource: DataSource = new DataSource({
     password: config.database.password,
     entities,
     migrationsTableName: 'Migrations',
-    migrations: ['./migration/migrations/*{.ts,.js}'],
+    migrations: ['./src/database/migration/migrations/*{.ts,.js}'],
 });
 
 export default migrationDataSource;

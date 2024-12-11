@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+
 
 export class UpdateMediaPathParamDto {
   @IsString()
@@ -29,7 +29,7 @@ export class UpdateMediaResponseDto extends BaseResponse<UpdateMediaResponseBody
       {
         referenceCode,
       },
-      HttpCode.OK,
+      
     );
   }
 }

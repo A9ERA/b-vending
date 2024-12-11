@@ -10,7 +10,7 @@ import { ProductModule } from './modules/product/product.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 
-import { TypeOrmConfigService } from './database/database.config';
+import { TypeOrmConfigService } from './config/database.config';
 
 @Module({
   imports: [

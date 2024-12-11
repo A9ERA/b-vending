@@ -1,9 +1,6 @@
-import { HttpCode } from '../enum/http';
 
-export default abstract class BaseResponse<TData> {
+export default abstract class BaseResponse<T> {
   constructor(
-    readonly data: TData,
-    readonly httpCode: HttpCode,
-    readonly location?: string,
+    readonly data: T,
   ) {}
 }

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+
 
 export class DeleteInventoryPathParamDto {
   @IsString()
@@ -17,7 +17,7 @@ export class DeleteInventoryResponseDto extends BaseResponse<DeleteInventoryResp
       {
         referenceCode,
       },
-      HttpCode.OK,
+      
     );
   }
 }

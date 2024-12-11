@@ -1,9 +1,11 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+import { CategoryEntity } from 'src/database/entities/category.entity';
+
 
 export class UpdateCategoryPathParamDto {
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
   id: string;
 }
@@ -15,21 +17,21 @@ export class UpdateCategoryRequestBodyDto {
   name: string;
 
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
   @IsOptional()
   parentId: string;
 }
 
-interface UpdateCategoryResponseBody {
-  referenceCode: string;
+interface UpdateCategoryResponseBody extends Omit<CategoryEntity, 'parent'> {
+  parentId: string;
 }
-export class UpdateCategoryResponseDto extends BaseResponse<UpdateCategoryResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      HttpCode.OK,
-    );
+
+export class UpdateCategoryResponse extends BaseResponse<UpdateCategoryResponseBody> {
+  constructor({ parent, ...category }: CategoryEntity) {
+    super({
+      ...category,
+      parentId: parent?.id ?? null,
+    });
   }
 }

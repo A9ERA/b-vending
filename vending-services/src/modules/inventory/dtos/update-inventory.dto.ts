@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+
 
 export class UpdateInventoryPathParamDto {
   @IsString()
@@ -29,7 +29,7 @@ export class UpdateInventoryResponseDto extends BaseResponse<UpdateInventoryResp
       {
         referenceCode,
       },
-      HttpCode.OK,
+      
     );
   }
 }

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+
 
 export class CreateProductRequestBodyDto {
   @IsString()
@@ -22,7 +22,6 @@ export class CreateProductResponseDto extends BaseResponse<CreateProductResponse
       {
         referenceCode,
       },
-      HttpCode.OK,
     );
   }
 }

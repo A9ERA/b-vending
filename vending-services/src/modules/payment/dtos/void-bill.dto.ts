@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+
 
 export class VoidBillPathParamDto {
   @IsString()
@@ -17,7 +17,6 @@ export class VoidBillResponseDto extends BaseResponse<VoidBillResponseBody> {
       {
         referenceCode,
       },
-      HttpCode.OK,
     );
   }
 }

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-import { HttpCode } from 'src/common/enum/http';
+
 
 export class DeleteMediaPathParamDto {
   @IsString()
@@ -17,7 +17,7 @@ export class DeleteMediaResponseDto extends BaseResponse<DeleteMediaResponseBody
       {
         referenceCode,
       },
-      HttpCode.OK,
+      
     );
   }
 }
