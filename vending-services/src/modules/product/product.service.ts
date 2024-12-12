@@ -7,6 +7,7 @@ import { UpdateProductPathParamDto, UpdateProductRequestBodyDto } from './dtos/u
 import { ProductEntity } from 'src/database/entities/product.entity';
 import { MediaEntity } from 'src/database/entities/media.entity';
 import { DeleteProductPathParamDto } from './dtos/delete-product.dto';
+import { InventoryEntity } from 'src/database/entities/inventory.entity';
 
 @Injectable()
 export class ProductService {
@@ -16,6 +17,9 @@ export class ProductService {
 
     @InjectRepository(MediaEntity)
     private readonly mediaRepository: Repository<MediaEntity>,
+
+    @InjectRepository(InventoryEntity)
+    private readonly inventoryRepository: Repository<InventoryEntity>,
   ) {}
 
   async getProductById(id: GetProductQueryParamDto['id']) {
@@ -37,7 +41,12 @@ export class ProductService {
       desc,
       previewPic: previewPicId ? { id: previewPicId } : null,
     });
-    return this.productRepository.save(product);
+    const createdProduct = await this.productRepository.save(product);
+    await this.inventoryRepository.save(this.inventoryRepository.create({
+      product: createdProduct,
+      quantity: 0,
+    }));
+    return createdProduct;
   }
 
   async updateProduct(

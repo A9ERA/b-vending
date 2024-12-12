@@ -16,6 +16,7 @@ import { CashEntity } from 'src/database/entities/cash.entity';
 import { ProductEntity } from 'src/database/entities/product.entity';
 import { VoidBillPathParamDto } from './dtos/void-bill.dto';
 import { GetBillQueryParamDto } from './dtos/get-bill.dto';
+import { InventoryEntity } from 'src/database/entities/inventory.entity';
 
 @Injectable()
 export class PaymentService {
@@ -26,6 +27,8 @@ export class PaymentService {
     private readonly cashRepository: Repository<CashEntity>,
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
+    @InjectRepository(InventoryEntity)
+    private readonly inventoryRepository: Repository<InventoryEntity>,
   ) {}
 
   async getBillById(id: GetBillQueryParamDto['id']) {
@@ -40,6 +43,14 @@ export class PaymentService {
       status: BillStatus.PENDING,
       product: { id: productId },
     });
+    const inventory = await this.inventoryRepository.findOne({
+      where: { product: { id: productId } },
+      relations: ['product'],
+    });
+    if (inventory.quantity <= 0) {
+      throw new ConflictException('Product is out of stock');
+    }
+
     return this.paymentRepository.save(bill);
   }
 
@@ -98,6 +109,7 @@ export class PaymentService {
 
     if (bill.status === BillStatus.COMPLETED) {
       await this.fillCashByCompletedBill(bill);
+      await this.reduceProductStock(product);
     }
     
 
@@ -137,6 +149,15 @@ export class PaymentService {
     }
 
     await this.cashRepository.save(cashes);
+  }
+
+  async reduceProductStock(product: ProductEntity) {
+    const inventory = await this.inventoryRepository.findOne({
+      where: { product: { id: product.id } },
+      relations: ['product'],
+    });
+    inventory.quantity = inventory.quantity - 1;
+    await this.inventoryRepository.save(inventory);
   }
 
   async makeChangeList(cashes: CashEntity[], amount: number) {

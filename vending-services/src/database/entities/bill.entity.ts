@@ -11,7 +11,7 @@ export class BillEntity extends BaseEntity {
     type: 'varchar',
     length: 20,
     nullable: false,
-    enum: ['pending', 'canceled', 'completed', 'failed'],
+    enum: ['pending', 'cancelled', 'completed', 'failed'],
   })
   status: string;
 

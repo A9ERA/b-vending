@@ -1,6 +1,6 @@
 export enum BillStatus {
     PENDING = 'pending',
-    CANCELED = 'canceled',
+    CANCELED = 'cancelled',
     COMPLETED = 'completed',
     FAILED = 'failed'
 }

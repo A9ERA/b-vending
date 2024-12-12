@@ -23,6 +23,7 @@ const config = {
     username: env.DATABASE_USERNAME,
     password: env.DATABASE_PASSWORD,
     enableLog: !!env.DB_LOG,
-  }
+  },
+  clientOrigin: env.CLIENT_ORIGIN,
 };
 export default config;

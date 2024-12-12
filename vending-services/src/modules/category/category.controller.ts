@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import {
+  GetCategoriesResponse,
   GetCategoryQueryParamDto,
   GetCategoryResponse,
 } from './dtos/get-category.dto';
@@ -28,14 +29,19 @@ import { DeleteCategoryPathParamDto, DeleteCategoryResponse } from './dtos/delet
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
+  @Get(':id')
+  async getCategoryById(@Param() { id }: UpdateCategoryPathParamDto) {
+    return new GetCategoryResponse(await this.categoryService.getCategoryById(id));
+  }
+
   @Get()
   async getCategory(@Query() query: GetCategoryQueryParamDto) {
     if ('parentId' in query) {
-      return new GetCategoryResponse(
+      return new GetCategoriesResponse(
         await this.categoryService.getSubCategories(query),
       );
     }
-    return new GetCategoryResponse(await this.categoryService.getCategories());
+    return new GetCategoriesResponse(await this.categoryService.getCategories());
   }
 
   @Post()

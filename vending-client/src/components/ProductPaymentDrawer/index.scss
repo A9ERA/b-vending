@@ -1,0 +1,22 @@
+.ant-drawer-header{
+  border-bottom: unset !important;
+}
+
+.preview-img-container {
+  display: flex !important;
+  justify-content: center;
+  margin-bottom: 30px;
+  .preview-img {
+    height: 30vh;
+    min-height: 250px;
+    object-fit: cover;
+  }
+}
+
+.product-preview-dots{
+  li {
+    button {
+      background-color: #141414 !important;
+    }
+  }
+}

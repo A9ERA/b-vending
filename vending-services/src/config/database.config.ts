@@ -16,7 +16,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       password: config.database.password,
       entities,
       synchronize: false,
-      logging: config.database.enableLog,
+      logging: false,
     };
   }
 }

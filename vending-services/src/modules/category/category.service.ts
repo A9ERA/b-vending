@@ -21,6 +21,17 @@ export class CategoryService {
     private readonly categoryRepository: Repository<CategoryEntity>,
   ) {}
 
+  async getCategoryById(categoryId: UpdateCategoryPathParamDto['id']) {
+    const category = await this.categoryRepository.findOne({
+      where: { id: categoryId },
+      relations: ['parent'],
+    });
+    if (!category) {
+      throw new NotFoundException('Category not found');
+    }
+    return category;
+  }
+
   async getCategories() {
     return this.categoryRepository.find({
       where: {

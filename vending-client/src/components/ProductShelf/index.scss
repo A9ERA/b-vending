@@ -1,0 +1,48 @@
+.shelf-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+}
+.shelf-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 20px;
+  padding: 20px;
+
+  .shelf-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.3s;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .shelf-item__img {
+      height: 240px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .shelf-item__content {
+      padding: 20px;
+
+      .shelf-item__title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+
+      .shelf-item__price {
+        font-size: 16px;
+        font-weight: 500;
+        color: #ff4d4f;
+      }
+    }
+  }
+}

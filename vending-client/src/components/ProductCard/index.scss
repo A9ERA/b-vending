@@ -1,0 +1,10 @@
+.ant-card-cover{
+    display: flex;
+    justify-content: center;
+}
+
+.img-preview {
+    height: 240px;
+    width: calc(100% - 2px) !important;
+    object-fit: cover;
+}

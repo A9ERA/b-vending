@@ -1,0 +1,19 @@
+.header {
+    display: flex;
+    padding: 24px;
+    align-items: center;
+
+    .machine-logo {
+        width: auto;
+        height: 8vh;
+        min-height: 100px;
+        max-height: 120px;
+    }
+
+    .machine-name {
+        margin-left: 12px;
+        h1{
+            margin-bottom: unset;
+        }
+    }
+}
