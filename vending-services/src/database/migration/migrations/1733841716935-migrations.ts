@@ -21,15 +21,15 @@ export class Migrations1733841716935 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "inventory" ADD CONSTRAINT "FK_697de7a94023ebb8a8e62c14f0a" FOREIGN KEY ("category_id") REFERENCES "category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`
             INSERT INTO cash (id, type, value, quantity) VALUES
-                ('C0001', 'coin', 1, 0),
-                ('C0002', 'coin', 2, 0),
-                ('C0005', 'coin', 5, 0),
-                ('C0010', 'coin', 10, 0),
-                ('B0020', 'banknote', 20, 0),
-                ('B0050', 'banknote', 50, 0),
-                ('B0100', 'banknote', 100, 0),
-                ('B0500', 'banknote', 500, 0),
-                ('B1000', 'banknote', 1000, 0);
+                ('C0001', 'coin', 1, 10),
+                ('C0002', 'coin', 2, 10),
+                ('C0005', 'coin', 5, 10),
+                ('C0010', 'coin', 10, 10),
+                ('B0020', 'banknote', 20, 10),
+                ('B0050', 'banknote', 50, 10),
+                ('B0100', 'banknote', 100, 10),
+                ('B0500', 'banknote', 500, 10),
+                ('B1000', 'banknote', 1000, 10);
             `
         );
     }

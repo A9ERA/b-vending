@@ -12,13 +12,6 @@ async function bootstrap() {
     exclude: config.server.apiPrefix.exclude,
   });
   app.enableCors();
-
-  // For production
-  // app.enableCors({
-  //   origin: config.clientOrigin,
-  //   methods: 'GET,PATCH,POST,DELETE',
-  // });
-  
   app.use(bodyParser.json({limit: '50mb'}));
   await app.listen(config.server.port);
 }

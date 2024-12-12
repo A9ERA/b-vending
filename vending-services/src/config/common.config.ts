@@ -22,8 +22,8 @@ const config = {
     name: env.DATABASE_NAME,
     username: env.DATABASE_USERNAME,
     password: env.DATABASE_PASSWORD,
-    enableLog: !!env.DB_LOG,
+    enableLog: env.DB_LOG==='true',
+    initMockData: env.INIT_MOCK_DATA==='true',
   },
-  clientOrigin: env.CLIENT_ORIGIN,
 };
 export default config;

@@ -12,7 +12,10 @@ const migrationDataSource: DataSource = new DataSource({
     password: config.database.password,
     entities,
     migrationsTableName: 'Migrations',
-    migrations: ['./src/database/migration/migrations/*{.ts,.js}'],
+    migrations: [
+        './src/database/migration/migrations/*{.ts,.js}',
+        ...(config.database.initMockData ? ['./src/database/migration/mock/*{.ts,.js}'] : []),
+    ],
 });
 
 export default migrationDataSource;
