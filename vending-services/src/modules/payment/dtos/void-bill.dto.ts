@@ -1,22 +1,23 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
 
 
 export class VoidBillPathParamDto {
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
   id: string;
 }
 
 interface VoidBillResponseBody {
-  referenceCode: string;
+  success: boolean;
 }
-export class VoidBillResponseDto extends BaseResponse<VoidBillResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-    );
+export class VoidBillResponse extends BaseResponse<
+  VoidBillResponseBody
+> {
+  constructor(result: boolean) {
+    super({
+      success: result
+    });
   }
 }

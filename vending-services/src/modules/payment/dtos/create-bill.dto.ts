@@ -1,28 +1,24 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Min } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
+import { BillEntity } from 'src/database/entities/bill.entity';
 
 
 export class CreateBillRequestBodyDto {
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
-  name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
-  parentId: string;
+  productId: string;
 }
 
-interface CreateBillResponseBody {
-  referenceCode: string;
+interface CreateBillResponseBody extends Omit<BillEntity, 'product'> {
+  productId: string;
 }
-export class CreateBillResponseDto extends BaseResponse<CreateBillResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      
-    );
+
+export class CreateBillResponse extends BaseResponse<CreateBillResponseBody> {
+  constructor({ product, ...bill }: BillEntity) {
+    super({
+      ...bill,
+      productId: product.id,
+    });
   }
 }

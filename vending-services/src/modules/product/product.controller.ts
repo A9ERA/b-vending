@@ -1,56 +1,62 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ProductService } from './product.service';
-import { GetProductQueryParamDto } from './dtos/get-product.dto';
-import { GetProductDetailsQueryParamDto } from './dtos/get-product-details.dto';
-import { CreateProductRequestBodyDto } from './dtos/create-product.dto';
-import { UpdateProductPathParamDto, UpdateProductRequestBodyDto } from './dtos/update-product.dto';
-import { DeleteProductPathParamDto } from './dtos/delete-product.dto';
+import {
+  GetProductQueryParamDto,
+  GetProductResponse,
+} from './dtos/get-product.dto';
+import {
+  CreateProductRequestBodyDto,
+  CreateProductResponse,
+} from './dtos/create-product.dto';
+import {
+  UpdateProductPathParamDto,
+  UpdateProductRequestBodyDto,
+  UpdateProductResponse,
+} from './dtos/update-product.dto';
+import {
+  DeleteProductPathParamDto,
+  DeleteProductResponse,
+} from './dtos/delete-product.dto';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  getProduct(
-    @Query() query: GetProductQueryParamDto
-	): string {
-    console.log(query);
-    return 'hello';
-  }
-
-  @Get()
-  getProductDetails(
-    @Query() query: GetProductDetailsQueryParamDto
-	): string {
-    console.log(query);
-    return 'hello';
+  async getProduct(@Query() { id }: GetProductQueryParamDto) {
+    return new GetProductResponse(await this.productService.getProductById(id));
   }
 
   @Post()
-  createProduct(
-    @Body() body: CreateProductRequestBodyDto
-  ): string {
-		console.log(body);
-    return 'hello';
+  async createProduct(@Body() body: CreateProductRequestBodyDto) {
+    return new CreateProductResponse(
+      await this.productService.createProduct(body),
+    );
   }
 
-	@Patch(':id')
-	updateProduct(
-		@Param() param: UpdateProductPathParamDto,
-		@Body() body: UpdateProductRequestBodyDto,
-	): void {
-		console.log('param: ', param);
-		console.log('body: ', body);
-		
+  @Patch(':id')
+  async updateProduct(
+    @Param() { id }: UpdateProductPathParamDto,
+    @Body() body: UpdateProductRequestBodyDto,
+  ) {
+    return new UpdateProductResponse(
+      await this.productService.updateProduct(id, body),
+    );
+  }
 
-	}
-
-	@Delete(':id')
-	deleteProduct(
-		@Param() param: DeleteProductPathParamDto,
-	): void {
-		console.log('param: ', param);
-	
-	}
-
+  @Delete(':id')
+  async deleteProduct(@Param() { id }: DeleteProductPathParamDto) {
+    return new DeleteProductResponse(
+      await this.productService.delateProduct(id),
+    );
+  }
 }

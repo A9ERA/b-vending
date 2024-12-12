@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
 
 
@@ -9,15 +9,14 @@ export class DeleteInventoryPathParamDto {
 }
 
 interface DeleteInventoryResponseBody {
-  referenceCode: string;
+  success: boolean;
 }
-export class DeleteInventoryResponseDto extends BaseResponse<DeleteInventoryResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      
-    );
+export class DeleteInventoryResponse extends BaseResponse<
+  DeleteInventoryResponseBody
+> {
+  constructor(result: boolean) {
+    super({
+      success: result
+    });
   }
 }

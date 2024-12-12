@@ -1,35 +1,25 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
+import { CashEntity } from 'src/database/entities/cash.entity';
+
 
 
 export class UpdateCashPathParamDto {
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   id: string;
 }
 
 export class UpdateCashRequestBodyDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsNumber({ maxDecimalPlaces: 0 })
+  @Min(0)
   @IsOptional()
-  name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
-  parentId: string;
+  quantity: number;
 }
 
-interface UpdateCashResponseBody {
-  referenceCode: string;
-}
-export class UpdateCashResponseDto extends BaseResponse<UpdateCashResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      
-    );
+export class UpdateCashResponse extends BaseResponse<CashEntity> {
+  constructor(cash: CashEntity) {
+    super(cash);
   }
 }

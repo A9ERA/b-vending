@@ -1,28 +1,36 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString, IsUUID, Min } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
+import { InventoryEntity } from 'src/database/entities/inventory.entity';
 
 
 export class CreateInventoryRequestBodyDto {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsUUID()
+  productId: string;
+
+  @IsNumber({ maxDecimalPlaces: 0 })
+  @Min(0)
   @IsOptional()
-  parentId: string;
+  quantity: number;
+
+  @IsString()
+  @IsUUID()
+  @IsOptional()
+  categoryId: string;
 }
 
-interface CreateInventoryResponseBody {
-  referenceCode: string;
+interface CreateInventoryResponseBody extends Omit<InventoryEntity, 'product' | 'category'> {
+  productId: string;
+  categoryId: string;
 }
-export class CreateInventoryResponseDto extends BaseResponse<CreateInventoryResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      
-    );
+
+export class CreateInventoryResponse extends BaseResponse<CreateInventoryResponseBody> {
+  constructor({ product, category, ...inventory }: InventoryEntity) {
+    super({
+      ...inventory,
+      productId: product?.id ?? null,
+      categoryId: category?.id ?? null,
+    });
   }
 }

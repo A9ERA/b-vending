@@ -1,28 +1,29 @@
 import { Body, Controller, Get, Param, Patch, Query } from '@nestjs/common';
-import { GetCashQueryParamDto } from './dtos/get-cash.dto';
+import { GetCashQueryParamDto, GetCashResponse } from './dtos/get-cash.dto';
 import { CashService } from './cash.service';
-import { UpdateCashPathParamDto, UpdateCashRequestBodyDto } from './dtos/update-cash.dto';
+import {
+  UpdateCashPathParamDto,
+  UpdateCashRequestBodyDto,
+  UpdateCashResponse,
+} from './dtos/update-cash.dto';
 
 @Controller('cash')
 export class CashController {
   constructor(private readonly cashService: CashService) {}
 
   @Get()
-  getCash(
-    @Query() query: GetCashQueryParamDto,
-	): string {
-    console.log(query);
-    return 'hello';
+  async getCash(@Query() { id }: GetCashQueryParamDto) {
+    if (id) {
+      return new GetCashResponse(await this.cashService.getCashById(id));
+    }
+    return new GetCashResponse(await this.cashService.getCashes());
   }
 
   @Patch(':id')
-	updateCash(
-		@Param() param: UpdateCashPathParamDto,
-		@Body() body: UpdateCashRequestBodyDto,
-	): void {
-		console.log('param: ', param);
-		console.log('body: ', body);
-		
-
-	}
+  async updateCash(
+    @Param() { id }: UpdateCashPathParamDto,
+    @Body() body: UpdateCashRequestBodyDto,
+  ) {
+    return new UpdateCashResponse(await this.cashService.updateCash(id, body));
+  }
 }

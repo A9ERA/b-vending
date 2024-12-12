@@ -1,9 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
-
+import { BillEntity } from 'src/database/entities/bill.entity';
 
 export class PayBillPathParamDto {
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
   id: string;
 }
@@ -11,24 +12,20 @@ export class PayBillPathParamDto {
 export class PayBillRequestBodyDto {
   @IsString()
   @IsNotEmpty()
-  @IsOptional()
-  name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
-  parentId: string;
+  cashId: string;
 }
 
 interface PayBillResponseBody {
-  referenceCode: string;
+  amountPaid: number;
+  changeGiven: number;
+  status: string;
 }
-export class PayBillResponseDto extends BaseResponse<PayBillResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-    );
+export class PayBillResponse extends BaseResponse<PayBillResponseBody> {
+  constructor({ amountPaid, changeGiven, status }: BillEntity) {
+    super({
+      amountPaid,
+      changeGiven,
+      status,
+    });
   }
 }

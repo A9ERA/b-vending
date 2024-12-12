@@ -57,7 +57,7 @@ export class CategoryService {
       throw new NotFoundException('Category not found');
     }
 
-    category.name = name;
+    category.name = name ?? category.name;
 
     if (parentId === null) {
       category.parent = null;

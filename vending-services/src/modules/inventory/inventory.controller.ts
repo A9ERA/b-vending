@@ -1,47 +1,56 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { InventoryService } from './inventory.service';
-import { GetInventoryQueryParamDto } from './dtos/get-inventory.dto';
-import { CreateInventoryRequestBodyDto } from './dtos/create-inventory.dto';
-import { UpdateInventoryPathParamDto, UpdateInventoryRequestBodyDto } from './dtos/update-inventory.dto';
-import { DeleteInventoryPathParamDto } from './dtos/delete-inventory.dto';
+import { GetInventoryQueryParamDto, GetInventoryResponse } from './dtos/get-inventory.dto';
+import {
+  CreateInventoryRequestBodyDto,
+  CreateInventoryResponse,
+} from './dtos/create-inventory.dto';
+import {
+  UpdateInventoryPathParamDto,
+  UpdateInventoryRequestBodyDto,
+  UpdateInventoryResponse,
+} from './dtos/update-inventory.dto';
+import { DeleteInventoryPathParamDto, DeleteInventoryResponse } from './dtos/delete-inventory.dto';
 
 @Controller('inventory')
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
   @Get()
-  getInventory(
-    @Query() query: GetInventoryQueryParamDto
-	): string {
-    console.log(query);
-    return 'hello';
+  async getInventory(@Query() {categoryId}: GetInventoryQueryParamDto) {
+    return new GetInventoryResponse(await this.inventoryService.getInventory(categoryId));
   }
 
   @Post()
-  createInventory(
-    @Body() body: CreateInventoryRequestBodyDto
-  ): string {
-		console.log(body);
-    return 'hello';
+  async createInventory(@Body() body: CreateInventoryRequestBodyDto) {
+    return new CreateInventoryResponse(
+      await this.inventoryService.createInventory(body),
+    );
   }
 
-	@Patch(':id')
-	updateInventory(
-		@Param() param: UpdateInventoryPathParamDto,
-		@Body() body: UpdateInventoryRequestBodyDto,
-	): void {
-		console.log('param: ', param);
-		console.log('body: ', body);
-		
+  @Patch(':id')
+  async updateInventory(
+    @Param() { id }: UpdateInventoryPathParamDto,
+    @Body() body: UpdateInventoryRequestBodyDto,
+  ) {
+    return new UpdateInventoryResponse(
+      await this.inventoryService.updateInventory(id, body),
+    );
+  }
 
+  @Delete(':id')
+  async deleteInventory(@Param() { id }: DeleteInventoryPathParamDto) {
+		return new DeleteInventoryResponse(
+      await this.inventoryService.delateInventory(id),
+    );
 	}
-
-	@Delete(':id')
-	deleteInventory(
-		@Param() param: DeleteInventoryPathParamDto,
-	): void {
-		console.log('param: ', param);
-	
-	}
-
 }

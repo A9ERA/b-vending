@@ -1,9 +1,11 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
+import { MediaEntity } from 'src/database/entities/media.entity';
 
 
 export class UpdateMediaPathParamDto {
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
   id: string;
 }
@@ -12,24 +14,29 @@ export class UpdateMediaRequestBodyDto {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  name: string;
+  data: string;
 
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  parentId: string;
+  fileType: string;
+
+  @IsString()
+  @IsUUID()
+  @IsNotEmpty()
+  @IsOptional()
+  productId: string;
 }
 
-interface UpdateMediaResponseBody {
-  referenceCode: string;
+interface UpdateMediaResponseBody extends Omit<MediaEntity, 'product'> {
+  productId: string;
 }
-export class UpdateMediaResponseDto extends BaseResponse<UpdateMediaResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      
-    );
+
+export class UpdateMediaResponse extends BaseResponse<UpdateMediaResponseBody> {
+  constructor({ product, ...media }: MediaEntity) {
+    super({
+      ...media,
+      productId: product?.id ?? null,
+    });
   }
 }

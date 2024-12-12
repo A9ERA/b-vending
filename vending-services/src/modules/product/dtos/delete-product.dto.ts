@@ -1,22 +1,23 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
 
 
 export class DeleteProductPathParamDto {
   @IsString()
+  @IsUUID()
   @IsNotEmpty()
   id: string;
 }
 
 interface DeleteProductResponseBody {
-  referenceCode: string;
+  success: boolean;
 }
-export class DeleteProductResponseDto extends BaseResponse<DeleteProductResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-    );
+export class DeleteProductResponse extends BaseResponse<
+  DeleteProductResponseBody
+> {
+  constructor(result: boolean) {
+    super({
+      success: result
+    });
   }
 }

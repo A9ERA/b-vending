@@ -1,28 +1,35 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
+import { MediaEntity } from 'src/database/entities/media.entity';
 
 
 export class CreateMediaRequestBodyDto {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
 
   @IsString()
+  @IsNotEmpty()
+  data: string;
+  
+  @IsString()
+  @IsNotEmpty()
+  fileType: string;
+
+  @IsString()
+  @IsUUID()
   @IsNotEmpty()
   @IsOptional()
-  parentId: string;
+  productId: string;
 }
 
-interface CreateMediaResponseBody {
-  referenceCode: string;
+interface CreateMediaResponseBody extends Omit<MediaEntity, 'product'> {
+  productId: string;
 }
-export class CreateMediaResponseDto extends BaseResponse<CreateMediaResponseBody> {
-  constructor(referenceCode: string) {
-    super(
-      {
-        referenceCode,
-      },
-      
-    );
+
+export class CreateMediaResponse extends BaseResponse<CreateMediaResponseBody> {
+  constructor({ product, ...media }: MediaEntity) {
+    super({
+      ...media,
+      productId: product?.id ?? null,
+    });
   }
 }
+

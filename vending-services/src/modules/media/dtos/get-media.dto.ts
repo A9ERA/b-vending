@@ -1,7 +1,18 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { Response } from 'express';
+import { MediaEntity } from 'src/database/entities/media.entity';
 
 export class GetMediaQueryParamDto {
-    @IsString()
-    @IsOptional()
-    id: string;
+  @IsString()
+  @IsUUID()
+  @IsNotEmpty()
+  id: string;
+}
+
+export class GetMediaResponse {
+  constructor(media: MediaEntity, res: Response) {
+    res.setHeader('Content-Type', media.fileType);
+    res.setHeader('Content-Disposition', `inline;`);
+    res.send(Buffer.from(media.data, 'base64'));
+  }
 }
