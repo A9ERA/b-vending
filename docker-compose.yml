@@ -5,7 +5,7 @@ services:
       context: ./vending-client
       dockerfile: Dockerfile
     ports:
-      - "3000:80" # Maps port 80 of the container to 3000 on the host
+      - "3000:3000"
     depends_on:
       - vending-services
     networks:
@@ -19,11 +19,14 @@ services:
     ports:
       - "4000:4000" # NestJS default port
     environment:
-      - DATABASE_HOST=postgres
+      - PORT=4000
+      - DATABASE_ENDPOINT=vending-db
       - DATABASE_PORT=5432
-      - DATABASE_USER=admin
-      - DATABASE_PASSWORD=adm1nP@ssw0rd
       - DATABASE_NAME=vending-db
+      - DATABASE_USERNAME=admin
+      - DATABASE_PASSWORD=adm1nP@ssw0rd
+      - DB_LOG=false
+      - INIT_MOCK_DATA=true
     depends_on:
       - vending-db
     networks:
