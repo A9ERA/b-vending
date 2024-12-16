@@ -56,7 +56,7 @@ This command will:
 
 #### Step 2: Access the Application
   - Web application: http://localhost:3000
-  - [WIP] API swagger: http://localhost:4000/api
+  - API swagger: http://localhost:4000/api
 
 #### Step 3: Stop Containers
 
@@ -64,5 +64,65 @@ This command will:
 docker-compose down
 ```
 This command will cleanly stop and remove all the containers and associated resources.
+
+
+## 📋 Usage
+
+### 1. Start with main page
+You can view all products listed on the main page.\
+![main page](/assets/usage1.png)
+
+### 2. Select the product
+![alt text](/assets/usage2.png)
+
+### 3. Click buy button
+![alt text](/assets/usage3.png)
+
+After clicking the buy button, the machine will wait for cash to be inserted.
+
+To simulate cash insertion, follow these steps:
+
+#### 3.1 Find the bill id
+ Solution 1: Check the Network tab in the browser's Inspect mode. \
+ ![alt text](/assets/usage3.1.1.png)
+
+ Solution 2: Check the `bill` table in the database and look for bills with a status of `pending`. \
+![alt text](/assets/usage3.1.2.png)
+
+#### 3.2 Call the Pay Bill API.
+[Swagger Pay Bill ](http://localhost:4000/api#/Payment/PaymentController_payBill)\
+curl:
+```bash
+curl --location --request PATCH 'http://localhost:4000/api/v1/payment/pay/9d3aab61-8a28-48db-bdb3-c9fe35e218ae' \
+--header 'User-Agent: Apidog/1.0.0 (https://apidog.com)' \
+--header 'Content-Type: application/json' \
+--header 'Accept: */*' \
+--header 'Host: localhost:4000' \
+--header 'Connection: keep-alive' \
+--data-raw '{
+  "cashId": "C0010"
+}'
+```
+
+Include the bill ID as a path parameter.\
+And include the cash ID for the coin or banknote you want to insert in the request body as a JSON object.
+
+You can check the `cashId` from the `cash` table in the database\
+![alt text](/assets/usage3.2.png)
+
+#### 4. Check the cash insertion result at the vending client
+The amount paid and remaining amount will be updated immediately.\
+![alt text](/assets/usage4.png)
+
+#### 5. Complete the payment
+Then, I will try to insert a 50 THB banknote. The expected result is that the payment will succeed, and I will receive 25 THB in change.
+
+Result:
+
+![alt text](/assets/usage5.1.png)\
+The vending client displays a payment success result.
+
+![alt text](/assets/usage5.2.png)\
+And if you check the vending service log, it will display information about the change given to the customer.
 
 

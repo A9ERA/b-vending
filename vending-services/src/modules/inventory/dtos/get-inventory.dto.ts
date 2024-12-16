@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString, IsUUID } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
 import { InventoryEntity } from 'src/database/entities/inventory.entity';
@@ -6,6 +7,11 @@ export class GetInventoryQueryParamDto {
   @IsString()
   @IsUUID()
   @IsOptional()
+  @ApiProperty({
+    description: 'The category ID to filter the inventory',
+    example: 'd290f1ee-6c54-4b01-90e6-d701748f0851',
+    required: false,
+  })
   categoryId: string;
 }
 

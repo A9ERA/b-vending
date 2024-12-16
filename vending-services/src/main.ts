@@ -17,8 +17,8 @@ async function bootstrap() {
 
   const docConfig = new DocumentBuilder()
     .setTitle('Blue Vending API')
-    .setDescription('The Blue Vending API description')
-    .setVersion('1.0')
+    .setDescription('The Blue Vending API for the vending machine')
+    .setVersion('1.0.0')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, docConfig);
   SwaggerModule.setup('api', app, documentFactory);

@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import BaseResponse from 'src/common/dtos/base.response';
 import { CashEntity } from 'src/database/entities/cash.entity';
@@ -6,6 +7,10 @@ export class GetCashQueryParamDto {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
+  @ApiProperty({
+    description: 'The id of the cash',
+    required: false,
+  })
   id: string;
 }
 
