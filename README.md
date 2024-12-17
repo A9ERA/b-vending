@@ -4,6 +4,12 @@
 
 Blue Vending is a modern vending machine management system designed to streamline operations, improve efficiency, and enhance customer experience. The project leverages cutting-edge technologies to provide real-time inventory tracking, remote management, and data analytics.
 
+## 🌟 Feature Overview
+- **[Product shelf categorization](#1-product-shelf-categorization)**: Enable users to filter products by categories, making it easier to locate items on the vending machine shelf.
+- **[Sold-Out Product Mark](#2-sold-out-product-mark)**: Mark the product as out of stock on the shelf for better visibility.
+- **[Real-Time Payment Result](#3-real-time-payment-result)**: Monitor the inserted cash amount, view the remaining amount, and receive immediate confirmation of successful payments.
+- **[Void the Bill and Get Refund](#4-void-the-bill-and-get-refund)**: Allow users to cancel their transaction and receive a refund at any time before the payment is finalized.
+
 ## 🛠️ Getting Started
 ### Prerequisites
 
@@ -126,3 +132,36 @@ The vending client displays a payment success result.
 And if you check the vending service log, it will display information about the change given to the customer.
 
 
+## 🧩 Features in Detail
+### 1. Product shelf categorization
+![alt text](/assets/features-detail1.1.png)\
+category = All
+
+![alt text](/assets/features-detail1.2.png)\
+category = Drink
+
+![alt text](/assets/features-detail1.3.png)\
+category = Drink/Coffee
+
+![alt text](/assets/features-detail1.4.png)\
+category = Drink/Coffee & Tea
+
+### 2. Sold-Out Product Mark
+
+![alt text](/assets/features-detail2.png)
+
+### 3. Real-Time Payment Result
+
+![alt text](/assets/features-detail3.1.png)\
+Monitor the inserted cash amount and display the remaining amount to the customer in real time.
+
+![alt text](/assets/features-detail3.2.png)\
+Confirm successful payment immediately upon sufficient cash insertion.
+
+### 4. Void the Bill and Get Refund
+
+![alt text](/assets/features-detail4.1.png)\
+Ask the user to confirm if they want to cancel the transaction.
+
+![alt text](/assets/features-detail4.2.png)\
+Refund their cash from the `transaction_cash_log`
