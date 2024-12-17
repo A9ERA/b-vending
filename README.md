@@ -1,5 +1,27 @@
 # Blue Vending
-
+## 📖 Table of Contents
+- [🚀 About the Project](#-about-the-project)
+- [🌟 Feature Overview](#-feature-overview)
+- [🛠️ Getting Started](#️-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [🐳 Run with Docker-Compose](#-run-with-docker-compose)
+    - [Step 1: Build and Start Containers](#step-1-build-and-start-containers)
+    - [Step 1.1: Configure Environment Variables](#step-11-configure-environment-variables)
+    - [Step 2: Access the Application](#step-2-access-the-application)
+    - [Step 3: Stop Containers](#step-3-stop-containers)
+- [📋 Usage](#-usage)
+  - [1. Start with main page](#1-start-with-main-page)
+  - [2. Select the product](#2-select-the-product)
+  - [3. Click buy button](#3-click-buy-button)
+    - [3.1 Find the bill id](#31-find-the-bill-id)
+    - [3.2 Call the Pay Bill API](#32-call-the-pay-bill-api)
+  - [4. Check the cash insertion result at the vending client](#4-check-the-cash-insertion-result-at-the-vending-client)
+  - [5. Complete the payment](#5-complete-the-payment)
+- [🧩 Features in Detail](#-features-in-detail)
+  - [1. Product shelf categorization](#1-product-shelf-categorization)
+  - [2. Sold-Out Product Mark](#2-sold-out-product-mark)
+  - [3. Real-Time Payment Result](#3-real-time-payment-result)
+  - [4. Void the Bill and Get Refund](#4-void-the-bill-and-get-refund)
 ## 🚀 About the Project
 
 Blue Vending is a modern vending machine management system designed to streamline operations, improve efficiency, and enhance customer experience. The project leverages cutting-edge technologies to provide real-time inventory tracking, remote management, and data analytics.
